@@ -10076,6 +10076,8 @@ in
 
   xmlrpc_c = callPackage ../development/libraries/xmlrpc-c { };
 
+  xmlrpc-epi = callPackage ../development/libraries/xmlrpc-epi {};
+
   xmlsec = callPackage ../development/libraries/xmlsec { };
 
   xml-security-c = callPackage ../development/libraries/xml-security-c { };
