@@ -1414,6 +1414,8 @@ in
 
   driftnet = callPackage ../tools/networking/driftnet {};
 
+  drone = callPackage ../development/tools/continuous-integration/drone { };
+
   dropbear = callPackage ../tools/networking/dropbear { };
 
   dtach = callPackage ../tools/misc/dtach { };
