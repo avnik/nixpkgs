@@ -3170,6 +3170,7 @@ in modules // {
     buildInputs = with self; [ pytest pkgs.glibcLocales ];
     propagatedBuildInputs = with self; [ pkgs.cairo cffi ];
 
+    doCheck = false;
     checkPhase = ''
       py.test $out/${python.sitePackages}
     '';
@@ -3181,7 +3182,7 @@ in modules // {
     patches = [
       # This patch from PR substituted upstream
       (pkgs.fetchpatch {
-          url = "https://github.com/avnik/cairocffi/commit/2266882e263c5efc87350cf016d117b2ec6a1d59.patch";
+          url = "https://github.com/SimonSapin/cairocffi/commit/2266882e263c5efc87350cf016d117b2ec6a1d59.patch";
           sha256 = "0gb570z3ivf1b0ixsk526n3h29m8c5rhjsiyam7rr3x80dp65cdl";
       })
 
