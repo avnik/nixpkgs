@@ -283,6 +283,15 @@ in
     meta.mainProgram = "rbprettier";
   };
 
+  prometheus-client-mmap = attrs: {
+    dontBuild = false;
+    postPatch = let
+      getconf = if stdenv.hostPlatform.isGnu then stdenv.cc.libc else getconf;
+    in ''
+      substituteInPlace lib/prometheus/client/page_size.rb --replace "getconf" "${lib.getBin getconf}/bin/getconf"
+    '';
+  };
+
   glib2 = attrs: {
     nativeBuildInputs = [ pkg-config ]
       ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
@@ -564,9 +573,14 @@ in
   };
 
   pg = attrs: {
-    buildFlags = [
-      "--with-pg-config=${postgresql}/bin/pg_config"
-    ];
+    # Force pkg-config lookup for libpq.
+    # See https://github.com/ged/ruby-pg/blob/6629dec6656f7ca27619e4675b45225d9e422112/ext/extconf.rb#L34-L55
+    #
+    # Note that setting --with-pg-config=${postgresql}/bin/pg_config would add
+    # an unnecessary reference to the entire postgresql package.
+    buildFlags = [ "--with-pg-config=ignore" ];
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [ postgresql ];
   };
 
   psych = attrs: {

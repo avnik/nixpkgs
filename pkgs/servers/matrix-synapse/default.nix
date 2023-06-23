@@ -12,20 +12,20 @@ in
 with python3.pkgs;
 buildPythonApplication rec {
   pname = "matrix-synapse";
-  version = "1.84.0";
+  version = "1.85.2";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = "synapse";
     rev = "v${version}";
-    hash = "sha256-CN/TCyQLlGRNDvsojGltP+GQ4UJiWQZkgQinD/w9Lfc=";
+    hash = "sha256-pFafBsisBPfpDnFYWcimUuBgfFVPZzLna3yHeqIBAAE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-MikdIo1YghDAvpVX2vUHFmz8WgupUi/TbMPIvYgGFRA=";
+    hash = "sha256-dnno+5Ma0YNYpmj3oZ5UG22uAanKwVT67BwQW+mHoFc=";
   };
 
   postPatch = ''
@@ -86,13 +86,13 @@ buildPythonApplication rec {
 
   doCheck = !stdenv.isDarwin;
 
-  checkPhase = ''
+  checkPhase = let testFlags = lib.optionalString (!stdenv.isAarch64) "-j $NIX_BUILD_CORES"; in ''
     runHook preCheck
 
     # remove src module, so tests use the installed module instead
     rm -rf ./synapse
 
-    PYTHONPATH=".:$PYTHONPATH" ${python3.interpreter} -m twisted.trial -j $NIX_BUILD_CORES tests
+    PYTHONPATH=".:$PYTHONPATH" ${python3.interpreter} -m twisted.trial ${testFlags} tests
 
     runHook postCheck
   '';
