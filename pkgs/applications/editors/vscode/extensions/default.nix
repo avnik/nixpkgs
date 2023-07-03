@@ -305,6 +305,23 @@ let
         };
       };
 
+      asdine.cue = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "cue";
+          publisher = "asdine";
+          version = "0.3.2";
+          sha256 = "sha256-jMXqhgjRdM3UG/9NtiwWAg61mBW8OYVAKDWgb4hzhA4=";
+        };
+        meta = {
+          description = "Cue language support for Visual Studio Code";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=asdine.cue";
+          homepage = "https://github.com/asdine/vscode-cue";
+          changelog = "https://marketplace.visualstudio.com/items/asdine.cue/changelog";
+          license = lib.licenses.mit;
+          maintainers = [lib.maintainers.matthewpi];
+        };
+      };
+
       astro-build.astro-vscode = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "astro-vscode";
@@ -790,8 +807,8 @@ let
         mktplcRef = {
           name = "vscode-eslint";
           publisher = "dbaeumer";
-          version = "2.4.0";
-          sha256 = "sha256-7MUQJkLPOF3oO0kpmfP3bWbS3aT7J0RF7f74LW55BQs=";
+          version = "2.4.2";
+          sha256 = "sha256-eIjaiVQ7PNJUtOiZlM+lw6VmW07FbMWPtY7UoedWtbw=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/dbaeumer.vscode-eslint/changelog";
@@ -1132,8 +1149,8 @@ let
         mktplcRef = {
           name = "prettier-vscode";
           publisher = "esbenp";
-          version = "9.14.0";
-          sha256 = "sha256-0eb3W9SErsqPofjR1DaChDghvWOQFSYIMnnWbu8GiHY=";
+          version = "9.16.0";
+          sha256 = "sha256-MF+mPhX4Q6wi7FxfaWG6fNJHY6EsTWOX+9UmN0iIZGU=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/esbenp.prettier-vscode/changelog";
