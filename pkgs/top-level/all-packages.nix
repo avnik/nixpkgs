@@ -1227,7 +1227,7 @@ with pkgs;
     makeWrapper = makeBinaryWrapper;
   };
 
-  wrapGAppsHook4 = wrapGAppsHook.override { gtk3 = gtk4; };
+  wrapGAppsHook4 = wrapGAppsHook.override { gtk3 = __splicedPackages.gtk4; };
 
   wrapGAppsNoGuiHook = wrapGAppsHook.override { isGraphical = false; };
 
@@ -1436,7 +1436,7 @@ with pkgs;
 
   airgeddon = callPackage ../tools/networking/airgeddon { };
 
-  apache-airflow = with python3.pkgs; toPythonApplication apache-airflow;
+  apache-airflow = callPackage ../servers/apache-airflow { };
 
   apachetomcatscanner = callPackage ../tools/security/apachetomcatscanner { };
 
@@ -6274,8 +6274,9 @@ with pkgs;
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
     citrix_workspace_23_02_0
+    citrix_workspace_23_07_0
   ;
-  citrix_workspace = citrix_workspace_23_02_0;
+  citrix_workspace = citrix_workspace_23_07_0;
 
   cmigemo = callPackage ../tools/text/cmigemo { };
 
@@ -7926,6 +7927,8 @@ with pkgs;
   gitlab-triage = callPackage ../applications/version-management/gitlab-triage { };
 
   gitlab-workhorse = callPackage ../applications/version-management/gitlab/gitlab-workhorse { };
+
+  gitlab-elasticsearch-indexer = callPackage ../applications/version-management/gitlab/gitlab-elasticsearch-indexer { };
 
   gitleaks = callPackage ../tools/security/gitleaks { };
 
@@ -9610,6 +9613,8 @@ with pkgs;
   latex2html = callPackage ../tools/misc/latex2html { };
 
   lazycli = callPackage ../tools/misc/lazycli { };
+
+  lavat = callPackage ../tools/misc/lavat { };
 
   lcdf-typetools = callPackage ../tools/misc/lcdf-typetools { };
 
@@ -17539,6 +17544,10 @@ with pkgs;
 
   asdf-vm = callPackage ../tools/misc/asdf-vm { };
 
+  rtx = callPackage ../tools/misc/rtx {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
   ### DEVELOPMENT / TOOLS
 
   abi-compliance-checker = callPackage ../development/tools/misc/abi-compliance-checker { };
@@ -24403,6 +24412,10 @@ with pkgs;
 
   vcg = callPackage ../development/libraries/vcg { };
 
+  vencord = callPackage ../misc/vencord { };
+
+  vencord-web-extension = callPackage ../misc/vencord { buildWebExtension = true; };
+
   vid-stab = callPackage ../development/libraries/vid-stab {
     inherit (llvmPackages) openmp;
   };
@@ -30658,6 +30671,7 @@ with pkgs;
   firefox-beta-unwrapped = firefoxPackages.firefox-beta;
   firefox-devedition-unwrapped = firefoxPackages.firefox-devedition;
   firefox-esr-102-unwrapped = firefoxPackages.firefox-esr-102;
+  firefox-esr-115-unwrapped = firefoxPackages.firefox-esr-115;
   firefox-esr-unwrapped = firefoxPackages.firefox-esr-102;
 
   firefox = wrapFirefox firefox-unwrapped { };
@@ -30666,6 +30680,7 @@ with pkgs;
 
   firefox-esr = firefox-esr-102;
   firefox-esr-102 = wrapFirefox firefox-esr-102-unwrapped { };
+  firefox-esr-115 = wrapFirefox firefox-esr-115-unwrapped { };
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     inherit (gnome) adwaita-icon-theme;
