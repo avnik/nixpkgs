@@ -5,7 +5,6 @@
 , pkg-config
 , libmysqlclient
 , libaio
-, libck
 , luajit
 # For testing:
 , testers
@@ -17,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.0.20";
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libmysqlclient luajit libck ] ++ lib.optionals stdenv.isLinux [ libaio ];
-  depsBuildBuild = [ pkg-config ];
+  buildInputs = [ libmysqlclient luajit ] ++ lib.optionals stdenv.isLinux [ libaio ];
 
   src = fetchFromGitHub {
     owner = "akopytov";
@@ -33,9 +31,6 @@ stdenv.mkDerivation rec {
     # The bundled version does not build on aarch64-darwin:
     # https://github.com/akopytov/sysbench/issues/416
     "--with-system-luajit"
-    "--with-system-ck"
-    "--with-mysql-includes=${lib.getDev libmysqlclient}/include/mysql"
-    "--with-mysql-libs=${libmysqlclient}/lib/mysql"
   ];
 
   passthru.tests = {
