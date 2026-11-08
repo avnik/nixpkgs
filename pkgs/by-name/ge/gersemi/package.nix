@@ -5,6 +5,8 @@
   cargo,
   rustPlatform,
   rustc,
+  sqlite,
+  pkg-config,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
@@ -31,6 +33,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cargo
     rustPlatform.cargoSetupHook
     rustc
+    pkg-config
   ];
 
   build-system = with python3Packages; [
@@ -42,6 +45,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     colorama
     lark
     pyyaml
+    sqlite
   ];
 
   meta = {
